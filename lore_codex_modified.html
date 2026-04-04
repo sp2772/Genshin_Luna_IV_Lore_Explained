@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Columbina & Sandrone Chronicles — Lore Codex</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #040810;
+  --bg2: #070d1a;
+  --frost: #8dd4f0;
+  --frost-glow: rgba(141,212,240,0.25);
+  --eternal: #f0c840;
+  --eternal-glow: rgba(240,200,64,0.25);
+  --crimson: #e04565;
+  --crimson-glow: rgba(224,69,101,0.25);
+  --bina: #5de8b8;
+  --bina-glow: rgba(93,232,184,0.25);
+  --hp: #bf80ff;
+  --hp-glow: rgba(191,128,255,0.22);
+  --nib: #ff8844;
+  --nib-glow: rgba(255,136,68,0.22);
+  --text: #ddd8cc;
+  --text-dim: #8a8070;
+  --accent: #60c8ff;
+  --abyss: #3a0060;
+  --past: #a07850;
+  --present: #5de8b8;
+  --future: #bf80ff;
+  --border: rgba(255,255,255,0.07);
+  --card-bg: rgba(10,18,36,0.85);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'EB Garamond', serif;
+  font-size: 16px;
+  line-height: 1.65;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* STARFIELD */
+#stars {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  animation: twinkle var(--dur, 3s) ease-in-out infinite;
+  opacity: 0;
+}
+@keyframes twinkle {
+  0%,100% { opacity: 0; }
+  50% { opacity: var(--op, 0.7); }
+}
+
+/* LAYOUT */
+.page { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 0 24px 80px; }
+
+/* HEADER */
+.hero {
+  text-align: center;
+  padding: 80px 0 60px;
+  position: relative;
+}
+.hero-moon {
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #dff4ff, #8dd4f0 40%, #1a4a6a 75%, #040810);
+  box-shadow: 0 0 80px 30px rgba(141,212,240,0.3), 0 0 200px 80px rgba(141,212,240,0.1);
+  margin: 0 auto 32px;
+  animation: float 6s ease-in-out infinite;
+  position: relative;
+}
+.hero-moon::after {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  border: 1px solid rgba(141,212,240,0.2);
+  animation: float 6s ease-in-out infinite reverse;
+}
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+
+.hero-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(22px, 4vw, 42px);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--frost);
+  text-shadow: 0 0 40px var(--frost-glow), 0 0 80px rgba(141,212,240,0.12);
+  margin-bottom: 10px;
+}
+.hero-sub {
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-bottom: 36px;
+}
+
+/* LEGEND */
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+}
+.legend-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+
+/* DIVIDER */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--frost), transparent);
+  margin: 48px 0;
+  opacity: 0.25;
+}
+
+/* SECTION */
+.section { margin-bottom: 72px; }
+.section-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(16px, 2.5vw, 22px);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border) 0%, transparent 100%);
+}
+.section-title .icon { font-size: 1.3em; }
+
+/* CARD */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 24px;
+  backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.card:hover {
+  border-color: rgba(255,255,255,0.14);
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--top-color, transparent);
+  border-radius: 12px 12px 0 0;
+}
+
+/* GRID */
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; }
+.grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+
+/* ─── SOUL RULES ─── */
+.rule-card {
+  background: var(--card-bg);
+  border: 1px solid rgba(93,232,184,0.15);
+  border-radius: 10px;
+  padding: 18px 20px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.rule-card:hover { border-color: rgba(93,232,184,0.35); box-shadow: 0 0 20px rgba(93,232,184,0.08); }
+.rule-num {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(93,232,184,0.12);
+  border: 1px solid rgba(93,232,184,0.3);
+  color: var(--bina);
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.rule-text { font-size: 15px; color: var(--text); }
+.rule-text strong { color: var(--bina); }
+.note-box {
+  background: rgba(255,180,60,0.07);
+  border: 1px solid rgba(255,180,60,0.2);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 14px;
+  color: #f0c880;
+  margin-top: 16px;
+  font-style: italic;
+}
+
+/* ─── TIMELINE ─── */
+.timeline { position: relative; padding-left: 40px; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 12px; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--nib) 0%, var(--frost) 40%, var(--bina) 70%, var(--hp) 100%);
+  opacity: 0.3;
+}
+.tl-item {
+  position: relative;
+  margin-bottom: 28px;
+}
+.tl-dot {
+  position: absolute;
+  left: -34px;
+  top: 6px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--dot-color, white);
+  background: var(--bg);
+  box-shadow: 0 0 10px var(--dot-color, white);
+}
+.tl-item .card { transition: all 0.3s; cursor: default; }
+.tl-item .card:hover { transform: translateX(4px); }
+.tl-era {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--dot-color, white);
+  margin-bottom: 6px;
+  opacity: 0.8;
+}
+.tl-head {
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 8px;
+}
+.tl-body { font-size: 14.5px; color: #b8b0a0; }
+.tl-body strong { color: var(--dot-color, white); }
+
+/* ─── MOON SISTERS ─── */
+.moon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+.moon-card {
+  border-radius: 16px;
+  padding: 28px 22px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--mc, rgba(255,255,255,0.1));
+  background: var(--card-bg);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.moon-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px var(--mc-glow, transparent); }
+.moon-orb {
+  width: 90px; height: 90px;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  position: relative;
+  animation: float 5s ease-in-out infinite;
+}
+.moon-orb::after {
+  content: '';
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  border: 1px solid var(--mc, transparent);
+  opacity: 0.3;
+  animation: float 5s ease-in-out infinite reverse;
+}
+.moon-name {
+  font-family: 'Cinzel', serif;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--mc, white);
+}
+.moon-alias {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  font-style: italic;
+  margin-bottom: 16px;
+}
+.moon-fate {
+  font-size: 13.5px;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+.moon-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  border: 1px solid var(--mc, white);
+  color: var(--mc, white);
+  opacity: 0.7;
+}
+
+/* ─── FLOW CHART ─── */
+.flow { display: flex; flex-direction: column; gap: 0; }
+.flow-step {
+  display: flex;
+  gap: 16px;
+  position: relative;
+}
+.flow-step:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 44px;
+  bottom: -8px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--sc, rgba(255,255,255,0.2)) 0%, transparent 100%);
+}
+.flow-num {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.4);
+  border: 2px solid var(--sc, rgba(255,255,255,0.2));
+  color: var(--sc, white);
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 16px var(--sc-glow, transparent);
+}
+.flow-content {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--sc, rgba(255,255,255,0.2));
+  border-radius: 0 10px 10px 0;
+  padding: 14px 18px;
+  margin-bottom: 16px;
+  flex: 1;
+  font-size: 14.5px;
+  color: #c0b8a8;
+  transition: all 0.2s;
+}
+.flow-content:hover { background: rgba(12,22,44,0.9); }
+.flow-content strong { color: var(--sc, white); }
+.flow-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.06);
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--sc, white);
+  margin-bottom: 6px;
+}
+
+/* ─── FORMULA ─── */
+.formula-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.formula-card {
+  background: var(--card-bg);
+  border: 1px solid rgba(191,128,255,0.15);
+  border-radius: 12px;
+  padding: 18px;
+  position: relative;
+  overflow: hidden;
+}
+.formula-card:hover { border-color: rgba(191,128,255,0.35); }
+.formula-card::before {
+  content: attr(data-num);
+  position: absolute;
+  top: -10px; right: 14px;
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 64px;
+  color: rgba(191,128,255,0.05);
+  pointer-events: none;
+}
+.formula-icon { font-size: 28px; margin-bottom: 10px; }
+.formula-title {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--hp);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.formula-desc { font-size: 14px; color: #a8a090; }
+.formula-desc strong { color: var(--hp); }
+
+/* ─── REINCARNATION LOOP ─── */
+.loop-steps { display: flex; flex-direction: column; gap: 0; position: relative; }
+.loop-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  position: relative;
+  padding-bottom: 20px;
+}
+.loop-item:not(:last-child)::after {
+  content: '↓';
+  position: absolute;
+  left: 16px;
+  bottom: 2px;
+  color: rgba(93,232,184,0.3);
+  font-size: 16px;
+}
+.loop-badge {
+  width: 36px;
+  flex-shrink: 0;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid rgba(93,232,184,0.4);
+  background: rgba(93,232,184,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  color: var(--bina);
+}
+.loop-text { font-size: 14.5px; color: #b0a898; padding-top: 6px; }
+.loop-text strong { color: var(--bina); }
+.loop-end {
+  background: linear-gradient(135deg, rgba(93,232,184,0.1), rgba(141,212,240,0.08));
+  border: 1px solid rgba(93,232,184,0.25);
+  border-radius: 12px;
+  padding: 16px 20px;
+  text-align: center;
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  color: var(--bina);
+  letter-spacing: 0.08em;
+  margin-top: 12px;
+}
+
+/* ─── PRESENT MOONS ─── */
+.present-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+.present-card {
+  background: var(--card-bg);
+  border: 1px solid var(--pc, rgba(255,255,255,0.1));
+  border-radius: 12px;
+  padding: 22px;
+  text-align: center;
+  transition: all 0.3s;
+}
+.present-card:hover { box-shadow: 0 8px 40px var(--pc-glow, transparent); transform: translateY(-4px); }
+.present-orb {
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  margin: 0 auto 14px;
+}
+.present-title {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  color: var(--pc, white);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.present-holder { font-size: 13px; color: var(--text-dim); font-style: italic; margin-bottom: 10px; }
+.present-desc { font-size: 13.5px; color: #a0988a; }
+
+/* ─── TRAVELLER ─── */
+.ship-card {
+  background: linear-gradient(135deg, rgba(10,20,40,0.9), rgba(6,12,28,0.9));
+  border: 1px solid rgba(255,180,60,0.12);
+  border-radius: 14px;
+  padding: 26px;
+  position: relative;
+  overflow: hidden;
+}
+.ship-card::before {
+  content: '🚀';
+  position: absolute;
+  top: 20px; right: 24px;
+  font-size: 48px;
+  opacity: 0.1;
+}
+.traveller-points { display: flex; flex-direction: column; gap: 14px; }
+.tp {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.tp-icon {
+  width: 28px; height: 28px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  background: rgba(255,180,60,0.1);
+  border: 1px solid rgba(255,180,60,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  margin-top: 2px;
+}
+.tp-text { font-size: 14.5px; color: #b8b0a0; }
+.tp-text strong { color: #f0c060; }
+
+/* BADGES */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.badge-past { background: rgba(160,120,80,0.15); color: var(--past); border: 1px solid rgba(160,120,80,0.25); }
+.badge-present { background: rgba(93,232,184,0.1); color: var(--present); border: 1px solid rgba(93,232,184,0.25); }
+.badge-future { background: rgba(191,128,255,0.1); color: var(--future); border: 1px solid rgba(191,128,255,0.25); }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: rgba(141,212,240,0.2); border-radius: 3px; }
+
+/* NAV */
+.toc {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 60px;
+}
+.toc-link {
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.2s;
+  background: rgba(255,255,255,0.02);
+}
+.toc-link:hover { border-color: var(--frost); color: var(--frost); background: rgba(141,212,240,0.06); }
+
+/* CALLOUT */
+.callout {
+  background: rgba(93,232,184,0.06);
+  border: 1px solid rgba(93,232,184,0.2);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-top: 18px;
+  font-size: 14px;
+  color: var(--bina);
+}
+.callout strong { color: #80f0c8; }
+
+/* REFLECTION INFO */
+.reflection-box {
+  background: rgba(93,232,184,0.04);
+  border: 1px solid rgba(93,232,184,0.12);
+  border-left: 3px solid var(--bina);
+  border-radius: 0 10px 10px 0;
+  padding: 16px 20px;
+  margin: 16px 0;
+  font-size: 14px;
+  color: #a8c8b8;
+}
+.reflection-box strong { color: var(--bina); }
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  padding: 40px 0;
+  border-top: 1px solid var(--border);
+  margin-top: 60px;
+}
+.footer-text {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+/* ANIMATIONS */
+@keyframes glow-pulse {
+  0%,100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+.glow { animation: glow-pulse 3s ease-in-out infinite; }
+
+/* IMPORTANT STAR MARKER */
+.important {
+  display: inline-block;
+  color: #f0c840;
+  font-size: 12px;
+  margin-left: 4px;
+}
+</style>
+</head>
+<body>
+
+<!-- Starfield -->
+<div id="stars"></div>
+
+<div class="page">
+
+  <!-- ══════════════ HERO ══════════════ -->
+  <div class="hero">
+    <div class="hero-moon"></div>
+    <h1 class="hero-title">The Columbina & Sandrone Chronicles</h1>
+    <p class="hero-sub">A Visual Lore Codex · Genshin Impact Theory</p>
+
+    <!-- Legend -->
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-dot" style="background:var(--past);box-shadow:0 0 6px var(--past)"></div>
+        <span style="color:var(--past)">[Past] Before the Luna IV Archon Quest[AQ]</span>
+      </div>
+      
+      <div class="legend-item">
+        <div class="legend-dot" style="background:var(--present);box-shadow:0 0 6px var(--present)"></div>
+        <span style="color:var(--present)">[Present] Bina disappeared, Luna IV AQ starts</span>
+      </div>
+      
+      <div class="legend-item">
+        <div class="legend-dot" style="background:var(--future);box-shadow:0 0 6px var(--future)"></div>
+        <span style="color:var(--future)">[Future] Events after the Luna IV AQ</span>
+      </div>
+    </div>
+
+    <!-- TOC -->
+    <nav class="toc" style="margin-top:28px;">
+      <a href="#soul-rules" class="toc-link">Soul Rules</a>
+      <a href="#prehistory" class="toc-link">Pre-History</a>
+      <a href="#moon-sisters" class="toc-link">Moon Sisters</a>
+      <a href="#reflection" class="toc-link">Reflection Space</a>
+      <a href="#bina-journey" class="toc-link">Bina's Journey</a>
+      <a href="#sandrone" class="toc-link">Sandrone's Formula</a>
+      <a href="#return" class="toc-link">The Return</a>
+      <a href="#reincarnation" class="toc-link">Reincarnation Loop</a>
+      <a href="#present" class="toc-link">Present State</a>
+      <a href="#traveller" class="toc-link">Traveller Lore</a>
+    </nav>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════ SOUL RULES ══════════════ -->
+  <section id="soul-rules" class="section">
+    <h2 class="section-title" style="color:var(--bina)"><span class="icon">⚗️</span> Soul Rules of Teyvat</h2>
+
+    <div class="note-box">
+      ⚠️ These rules <strong>only apply inside the False Sky (Teyvat) -- Mostly Rules set by first Descenders</strong>. Outside the false sky — no such rules exist.<br>
+      The <strong>Moon's Reflection Space</strong> has its own separate rules (exception).
+    </div>
+
+    <br>
+    <div class="grid-2">
+
+      <div class="rule-card">
+        <div class="rule-num">1</div>
+        <div class="rule-text">A living entity is made of <strong>soul/authority/power + a body</strong>. These two together define a living being.</div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-num">2</div>
+        <div class="rule-text">A <strong>part of a soul cannot exist without a body</strong>. Soul must always be anchored in a living vessel.</div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-num">3</div>
+        <div class="rule-text">A soul <strong>can be divided into parts</strong> and distributed across <strong>multiple bodies simultaneously</strong>.</div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-num">4</div>
+        <div class="rule-text">A body <strong>can contain multiple souls</strong> at the same time (overlapping soul hosting).</div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-num">5</div>
+        <div class="rule-text">If a partial soul is in a body and that body <strong>dies</strong>, the soul-part <strong>merges with the surviving body's soul</strong>.</div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-num">6</div>
+        <div class="rule-text">If the entire soul of a person <strong>cannot find any living body</strong> to inhabit → that entity is considered <strong>truly dead</strong>.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════ PRE-HISTORY TIMELINE ══════════════ -->
+  <section id="prehistory" class="section">
+    <h2 class="section-title" style="color:var(--nib)"><span class="icon">📜</span> Pre-History of Teyvat</h2>
+    <div class="timeline">
+
+      <div class="tl-item" style="--dot-color:var(--nib)">
+        <div class="tl-dot"></div>
+        <div class="card" style="--top-color:var(--nib)">
+          <div class="tl-era">Ancient Era · Dragon Age</div>
+          <div class="tl-head">Nibuleng, the Dragon King</div>
+          <div class="tl-body">Ruled Teyvat by creating <strong>three moons</strong> to watch over the life-cycles of Teyvat — governing life, death, space, time, and reason. Grew bored and left to travel the universe in search of power.</div>
+        </div>
+      </div>
+
+      <div class="tl-item" style="--dot-color:var(--hp)">
+        <div class="tl-dot"></div>
+        <div class="card" style="--top-color:var(--hp)">
+          <div class="tl-era">Interregnum · Guest Era</div>
+          <div class="tl-head">Heavenly Principles Arrives</div>
+          <div class="tl-body">HP came to Teyvat while Nibuleng was away. The <strong>three moon sisters welcomed HP as a guest</strong>. Initially no ill intent — HP simply watched over Teyvat. Teyvat at this time had diverse species: <strong>Hyperboreans, Angels, Dragonkin, Faes, and more</strong>.</div>
+        </div>
+      </div>
+
+      <div class="tl-item" style="--dot-color:var(--hp)">
+        <div class="tl-dot"></div>
+        <div class="card" style="--top-color:var(--hp)">
+          <div class="tl-era">HP Rule Begins</div>
+          <div class="tl-head">HP's Fear & the Strict Order</div>
+          <div class="tl-body">HP began to <strong>fear those who seek power through greed</strong>, afraid of losing authority. Created a rule-based order — copied the moon sisters' system to make <strong>Shades</strong>, implemented strict laws, and <strong>annihilated any civilization threatening his authority</strong> via Divine Nails. Rules were fair but penalties were extreme.</div>
+        </div>
+      </div>
+
+      <div class="tl-item" style="--dot-color:var(--frost)">
+        <div class="tl-dot" style="background:var(--frost)"></div>
+        <div class="card" style="--top-color:var(--frost)">
+          <div class="tl-era">Moon Sisters' Debate</div>
+          <div class="tl-head">The Three Sisters Disagree</div>
+          <div class="tl-body">
+            The moon sisters debated whether to oppose HP:<br><br>
+            🌙 <strong style="color:var(--crimson)">Iridescent Moon</strong> — Opposed HP<br>
+            🌙 <strong style="color:var(--frost)">Frost Moon</strong> — Neutral<br>
+            🌙 <strong style="color:var(--eternal)">Eternal Moon</strong> — Aligned with HP<br><br>
+            Eventually all three agreed: <em>HP's rule of Teyvat was wrong</em>.
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item" style="--dot-color:var(--nib)">
+        <div class="tl-dot"></div>
+        <div class="card" style="--top-color:var(--nib)">
+          <div class="tl-era">The War Begins</div>
+          <div class="tl-head">Nibuleng Returns with Abyss Power</div>
+          <div class="tl-body">Before the moon sisters could act, Nibuleng returned — wielding the <strong>power of the Abyss</strong> from beyond the world. Enraged that an alien (HP) was ruling his world, and that the moon sisters had "betrayed" him by welcoming HP, he <strong>imprisoned all three moon sisters' souls in the Moon's Reflection</strong> — a time-reversed jail from which none can escape once entered.</div>
+        </div>
+      </div>
+
+      <div class="tl-item" style="--dot-color:var(--frost)">
+        <div class="tl-dot"></div>
+        <div class="card" style="--top-color:var(--frost)">
+          <div class="tl-era">HP vs Nibuleng War</div>
+          <div class="tl-head">The Moons Destroyed</div>
+          <div class="tl-body">HP used most of his power to defeat Nibuleng. In the war, <strong>all three physical satellite moons were destroyed</strong>. Only the <strong>Frost Moon's corpse</strong> survived mostly intact. The other moons were shattered — only fragments remained. <span class="badge badge-past">Past</span> The question of how these fragments regained power is answered in [4].</div>
+        </div>
+      </div>
+
+      <div class="tl-item" style="--dot-color:var(--past)">
+        <div class="tl-dot"></div>
+        <div class="card" style="--top-color:var(--past)">
+          <div class="tl-era">Khanriah Age</div>
+          <div class="tl-head">Rerir & Tholindis Enter the Reflection</div>
+          <div class="tl-body">Thousands of years later, <strong>Rerir and Tholindis</strong> entered the Moon's Reflection and got trapped. Rerir's body <strong>shattered into pieces </strong> from incompatibility with the Moon's Reflection space— but <strong> survived due to an immortality curse from Ronova-shade of death. </strong>(The Wild Hunt - abyss revives rerir due to vengence) He later re-entered [thrown/sealed into the moon's reflection with the help of Dainslef etc.] and was barely <strong>compatible with the space due to the Khuvakhi he absorbed from Nod Krai[Wild Hunt]</strong>. <strong>Tholindis's mortal body died</strong> from lethal energy concentrations. Their soul/authority was sealed by the space and they both are separated by 'time' and cannot meet each other eternally [sad].</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════ MOON SISTERS ══════════════ -->
+  <section id="moon-sisters" class="section">
+    <h2 class="section-title" style="color:var(--frost)"><span class="icon">🌙</span> The Three Moon Sisters</h2>
+    <div class="moon-grid">
+
+      <!-- Frost Moon -->
+      <div class="moon-card" style="--mc:var(--frost);--mc-glow:var(--frost-glow)">
+        <div class="moon-orb" style="background:radial-gradient(circle at 35% 35%, #dff4ff, #8dd4f0 45%, #1a3a5a 80%)"></div>
+        <div class="moon-name">☽ Frost Moon</div>
+        <div class="moon-alias">The Neutral One · Middle Sister</div>
+        <div class="moon-fate">
+          Initially <strong>neutral</strong> in the HP debate. Imprisoned in the Moon's Reflection by Nibuleng. Physical corpse survived the war mostly intact — became the vessel through which <strong>Bina radiates Khuvakhi</strong> to Nod Krai over thousands of years.
+        </div>
+        <span class="moon-tag">Corpse survives · Bina's vessel</span>
+      </div>
+
+      <!-- Iridescent / Crimson Moon -->
+      <div class="moon-card" style="--mc:var(--crimson);--mc-glow:var(--crimson-glow)">
+        <div class="moon-orb" style="background:radial-gradient(circle at 35% 35%, #ffb0c0, #e04565 45%, #5a1020 80%)"></div>
+        <div class="moon-name">☽ Iridescent Moon</div>
+        <div class="moon-alias">The Rebel · Became Crimson Moon</div>
+        <div class="moon-fate">
+          <strong>Opposed HP</strong> most strongly. After the war, succumbed to <strong>Abyssal powers</strong> and became the <em>Crimson Moon</em>. Shattered into pieces — one fragment was used by <strong>Tholindis</strong> to open the Reflection gate. Current fragment is held by <strong>Arle</strong>.
+        </div>
+        <span class="moon-tag">Crimson Moon · Held by Arle</span>
+      </div>
+
+      <!-- Eternal Moon -->
+      <div class="moon-card" style="--mc:var(--eternal);--mc-glow:var(--eternal-glow)">
+        <div class="moon-orb" style="background:radial-gradient(circle at 35% 35%, #fff8cc, #f0c840 45%, #6a4a00 80%)"></div>
+        <div class="moon-name">☽ Eternal Moon</div>
+        <div class="moon-alias">The Aligned   · HP's ways</div>
+        <div class="moon-fate">
+          Initially aligned with HP's ways. After the war, was <strong>completely annihilated</strong> — the most destroyed of the three. A fragment of its power persists. Current fragment is held by <strong>Lauma / Frost Moon Scions</strong>.
+        </div>
+        <span class="moon-tag">Annihilated · Fragment with Lauma</span>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════ MOON'S REFLECTION SPACE ══════════════ -->
+  <section id="reflection" class="section">
+    <h2 class="section-title" style="color:var(--accent)"><span class="icon">🪞</span> The Moon's Reflection Space</h2>
+
+    <div class="grid-2">
+      <div class="card">
+        <div style="font-family:'Cinzel',serif;font-size:13px;color:var(--accent);margin-bottom:12px;letter-spacing:0.1em">WHAT IT IS</div>
+        <p style="font-size:14.5px;color:#b0a898">A <strong style="color:var(--accent)">time-reversed jail space</strong> created by Nibuleng to imprison the three moon sisters' souls/authority. Walking in any direction causes time to flow <strong style="color:var(--accent)">backwards</strong>. Anyone who enters will loop back to the moment of their imprisonment.</p>
+      </div>
+      <div class="card">
+        <div style="font-family:'Cinzel',serif;font-size:13px;color:var(--accent);margin-bottom:12px;letter-spacing:0.1em">WHO IS IMPRISONED</div>
+        <p style="font-size:14.5px;color:#b0a898">The jail <strong style="color:var(--accent)">only fully traps soul/authority/power</strong>. Mortals who enter get destroyed by high energy concentrations (Tholindis died). Immortals survive but their powers are stripped (Rerir shattered but survived via curse).</p>
+      </div>
+    </div>
+
+    <div class="reflection-box" style="margin-top:18px">
+      <strong>Key Insight:</strong> "Moon's Reflection Space / Jail / Space" — all terms used interchangeably to refer to the time-reversed space Bina entered in the previous Archon Quest.
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════ BINA'S JOURNEY ══════════════ -->
+  <section id="bina-journey" class="section">
+    <h2 class="section-title" style="color:var(--bina)"><span class="icon">🌌</span> Bina's Journey Through the Reflection Space</h2>
+
+    <div style="margin-bottom:18px">
+      <span class="badge badge-present" style="margin-right:8px">PRESENT → PAST</span>
+      <span style="font-size:13.5px;color:var(--text-dim);font-style:italic">Time flows backwards in the reflection space. Reading these steps = going further into the past.</span>
+    </div>
+
+    <div class="flow" style="--sc:var(--bina);--sc-glow:var(--bina-glow)">
+
+      <div class="flow-step">
+        <div class="flow-num">0</div>
+        <div class="flow-content">
+          <div class="flow-tag">Trigger Event</div>
+          <strong>Bina enters the Moon's Reflection</strong> in desperation to save the Traveller from Dottore's tri-lunar powers. (Dottore later creates an artificial moon fragment, but that's a separate development.)
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <div class="flow-content">
+          <div class="flow-tag">Discovery</div>
+          Bina realizes <strong>time flows backwards</strong> inside the space. She tries to interact with the past using her <strong>Khuvakhi powers</strong> to warn friends about doomsday (Dottore getting all 3 moons).
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-content">
+          <div class="flow-tag">Khuvakhi Limit Found</div>
+          Bina learns: using too much Khuvakhi to interact with the past <strong>forces her back into the space</strong>. (Proved via the Barbeloth Mage Astrology Card incident, and the Traveller turning back when she touched their shoulder.)
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-content">
+          <div class="flow-tag">Writing on the Wall</div>
+          Bina writes using Khuvakhi in the <strong>Traveller's past room</strong>, hoping they'd remember: <em>"open the windows, let moonlight in, I can write on the walls using moonlight."</em> She wrote everything — her survival, her situation — on the wall. The writing was always there but <strong>unnoticed until Nefer & Flins found it</strong> in the present (after the Moon Prayer incident).
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">4</div>
+        <div class="flow-content">
+          <div class="flow-tag">⭐ Critical Action</div>
+          With little power remaining, Bina <strong>cuts a part of her soul</strong> and leaves it with the Traveller — on their very first meeting day — as <strong>Luonnatar</strong>. This soul-fragment is the key to everything that follows.
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">5</div>
+        <div class="flow-content">
+          <div class="flow-tag">Revelation</div>
+          Bina realizes why she could exit the reflection space temporarily — the <strong>memory bubble tunnels</strong> always led to the Traveller's location. This is because she left a part of her soul (Luonnatar) with the Traveller, and <strong>souls attract across time</strong>.
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">6</div>
+        <div class="flow-content">
+          <div class="flow-tag">Rerir & Tholindis Encountered</div>
+          Bina sees Rerir and Tholindis and confirms the rule: <strong>the Reflection space only traps authority/soul</strong>. Rerir's Abyssal powers are gone, but he survives due to his immortality curse. Tholindis's mortal body died from the energy.
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">7</div>
+        <div class="flow-content">
+          <div class="flow-tag">Khuvakhi Revelation</div>
+          Bina realizes: <strong>Khuvakhi is her own innate personal power/authority</strong>. She is not just a person — she is, essentially, a <strong>Fourth Moon</strong>.
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">8</div>
+        <div class="flow-content">
+          <div class="flow-tag">Ancient Past Reached</div>
+          Continuing deeper through the reflection space, Bina travels far enough back to reach <strong>the moment Nibuleng originally imprisoned the three moon sisters</strong>.
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">9</div>
+        <div class="flow-content">
+          <div class="flow-tag">⭐ [4] The Gamble</div>
+          <strong>Bina absorbs all three moon sisters' authority/power into her own body.</strong> The moon sisters can now "die" inside the jail (as their souls/authority left), just like Tholindis died when her body had no moon power to sustain it. Bina's body is now carrying <strong>trilunar authority</strong> — albeit unstably.
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">10</div>
+        <div class="flow-content">
+          <div class="flow-tag">Promise Made</div>
+          Bina <strong>promises the moon sisters</strong> she will return their powers to their physical moon bodies/fragments once she escapes. This explains how the moon fragments later regained some consciousness and power.
+        </div>
+      </div>
+
+      <div class="flow-step" style="--sc:var(--crimson)">
+        <div class="flow-num" style="--sc:var(--crimson)">11</div>
+        <div class="flow-content" style="border-left-color:var(--crimson)">
+          <div class="flow-tag" style="color:var(--crimson)">Death in the Space</div>
+          <strong style="color:var(--crimson)">Bina dies inside the reflection space</strong>, holding the trilunar authority. Her body sacrifices itself. But since a part of her soul — Luonnatar — exists in the present, her soul escapes the reflection space (soul travels through time to rejoin its other half) and <strong>magnetically attaches to Luonnatar at one point in time when a certain condition is met: when the moon is brought inside teyvat's skies for the soul rules to work</strong>.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="callout">
+      <strong>Soul Travel Logic:</strong> The jail traps soul/authority only while you are <em>inside</em> the space. When Bina's body dies while a part of her soul exists <em>outside</em> (as Luonnatar in the present), her soul escapes by following the quantum rule — <em>two soul-parts reunite when one body dies.</em> Soul can travel through time itself to fulfill this rule.
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════ SANDRONE ══════════════ -->
+  <section id="sandrone" class="section">
+    <h2 class="section-title" style="color:var(--hp)"><span class="icon">🧪</span> Sandrone's Formula — Changing Fate</h2>
+
+    <div class="card" style="margin-bottom:24px">
+      <p style="font-size:15px;color:#c0b8a8"><strong style="color:var(--hp)">The Goal:</strong> Teyvat operates like a <em>simulation cycle</em> — defined by rules from Nibuleng & HP. These rules create <strong>fate</strong> (events that are bound to happen, cannot be changed). Sandrone doesn't just want to <em>predict</em> fate (like Rene Petrichor did for Fontaine's prophecy) — she wants to <strong>change it</strong>, specifically to tie Bina back to Teyvat and create the <em>moment</em> of her return.</p>
+    </div>
+
+    <div class="formula-grid">
+
+      <div class="formula-card" data-num="1">
+        <div class="formula-icon">🌀</div>
+        <div class="formula-title">Outside Variables (Descenders)</div>
+        <div class="formula-desc">Introducing <strong>variables from outside the system</strong> — i.e., Descenders like the Traveller — who are not bound by Teyvat's rules. They break the determinism.</div>
+      </div>
+
+      <div class="formula-card" data-num="2">
+        <div class="formula-icon">🌳</div>
+        <div class="formula-title">The Tree Model (Seal of Chymical Marriage)</div>
+        <div class="formula-desc">Pathway discovered by <strong>Rene Petrichor</strong>: a circle of <strong>4 orthants</strong> (Memories, Wishes, Soul, Persona) + <strong>Tree of Emanation</strong> (Rule, Sustain, Destroy). Albedo confirmed this — so Sandrone reluctantly used it despite not believing in soul/persona.</div>
+      </div>
+
+      <div class="formula-card" data-num="3">
+        <div class="formula-icon">📚</div>
+        <div class="formula-title">Historical Record Nodes</div>
+        <div class="formula-desc">The tree needs <strong>nodes from recorded history</strong>: world, space-time, civilization records. Specifically the <strong>Hyperborean civilization</strong> that worshipped the moon — these are the variable nodes pointing to <strong>primordial Light power</strong>.</div>
+      </div>
+
+      <div class="formula-card" data-num="4">
+        <div class="formula-icon">⚙️</div>
+        <div class="formula-title">Computing Power (Wanderer's Core)</div>
+        <div class="formula-desc">Processing enormous historical + real-time data requires <strong>massive computing power</strong>. Sandrone discovered Alain Guillotine (her creator/father) failed to change fate because he lacked this. Solution: <strong>Wanderer's core</strong>, derived from Irminsul.</div>
+      </div>
+
+      <div class="formula-card" data-num="5">
+        <div class="formula-icon">🔗</div>
+        <div class="formula-title">Bina's Link (Past → Present)</div>
+        <div class="formula-desc">For Bina to reappear, there must be a <strong>verified link between her past self and present self</strong>. The formula calculates the exact <em>moment</em> this link can be activated without breaking Teyvat's quantum rules.</div>
+      </div>
+
+      <div class="formula-card" data-num="6">
+        <div class="formula-icon">🎲</div>
+        <div class="formula-title">Generational Luck (The Miracle)</div>
+        <div class="formula-desc">Even with all the above, a <strong>miracle element</strong> — generational luck — is required. This is the intangible final ingredient that Sandrone's formula accounts for but cannot force.</div>
+      </div>
+
+    </div>
+
+    <div class="note-box" style="margin-top:18px">
+      Nefer found Bina's plans through her memories and <strong>relayed it to Sandrone</strong>, giving Sandrone the final piece needed to complete the formula.
+      At the cost of protecting the real formula from being destroyed by him, Sandrone 'dies' at the hands of dottore.
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════ THE RETURN ══════════════ -->
+  <section id="return" class="section">
+    <h2 class="section-title" style="color:var(--frost)"><span class="icon">✨</span> Bina's Return — The Final Sequence</h2>
+
+    <div class="card" style="margin-bottom:20px;background:linear-gradient(135deg,rgba(12,28,50,0.9),rgba(8,18,36,0.9))">
+      <p style="font-size:14px;color:var(--text-dim);margin-bottom:12px;font-family:'Cinzel',serif;letter-spacing:0.1em;text-transform:uppercase">What needs to happen simultaneously:</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px">
+
+        <div style="background:rgba(141,212,240,0.06);border:1px solid rgba(141,212,240,0.15);border-radius:8px;padding:12px">
+          <div style="color:var(--frost);font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.1em;margin-bottom:6px">🌙 MOON ENTERS FALSE SKY</div>
+          <div style="font-size:13px;color:#a8b8c8">Dottore opens a rift in the false sky. Arle, Varka, etc. use Nicole's powers to physically pull the Frost Moon corpse inside.</div>
+        </div>
+
+        <div style="background:rgba(93,232,184,0.06);border:1px solid rgba(93,232,184,0.15);border-radius:8px;padding:12px">
+          <div style="color:var(--bina);font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.1em;margin-bottom:6px">🌀 TRAVELLER (VARIABLE)</div>
+          <div style="font-size:13px;color:#a8b8c8">The Traveller as a Descender from outside the system provides the external variable that makes fate-change possible.</div>
+        </div>
+
+        <div style="background:rgba(191,128,255,0.06);border:1px solid rgba(191,128,255,0.15);border-radius:8px;padding:12px">
+          <div style="color:var(--hp);font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.1em;margin-bottom:6px">🧪 SANDRONE'S FORMULA</div>
+          <div style="font-size:13px;color:#a8b8c8">The formula runs, using Wanderer's computing power and Rene's tree model to calculate and force the miracle moment.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="flow" style="--sc:var(--frost);--sc-glow:var(--frost-glow)">
+
+      <div class="flow-step">
+        <div class="flow-num">→</div>
+        <div class="flow-content">
+          The moment the <strong>Frost Moon corpse enters the False Sky</strong>, Teyvat's soul rules activate. Bina's soul — which has been radiating Khuvakhi from the Frost Moon — is now inside the false sky's jurisdiction.
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">→</div>
+        <div class="flow-content">
+          <strong>Soul Rule #5 triggers:</strong> A part of soul (the major soul on the Frost Moon) + part of soul with a body (Luonnatar, in present with Traveller) cannot exist as two parts simultaneously in the same system while one has body and other does not - as per teyvat's soul rules. The major soul part <strong>fuses with Luonnatar</strong>.
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">→</div>
+        <div class="flow-content">
+          <strong>Luonnatar becomes the new Bina.</strong> The full soul is now back in a body (Luonnatar's body). Luonnatar ceases to be a separate entity — she <em>is</em> Bina now. (Edit: Bina later recreates Luonnatar again in her Chronicles quest just for fun.)
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">→</div>
+        <div class="flow-content">
+          With her powers restored and her soul whole, <strong>Bina uses her powers to reshape the Khuhenki body</strong> into her own character model/appearance.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════ REINCARNATION LOOP ══════════════ -->
+  <section id="reincarnation" class="section">
+    <h2 class="section-title" style="color:var(--bina)"><span class="icon">🔁</span> Bina's Reincarnation Loop — [5] Hypothesis</h2>
+
+    <div class="grid-2">
+      <div>
+        <div class="loop-steps">
+
+          <div class="loop-item">
+            <div class="loop-badge">1</div>
+            <div class="loop-text">After exiting the Moon's Reflection gate, Bina <strong>fulfills her promise</strong> — returns authority of all three moons back to their respective moon bodies / fragments.</div>
+          </div>
+
+          <div class="loop-item">
+            <div class="loop-badge">2</div>
+            <div class="loop-text">At the end of the war, <strong>Bina's soul stays in the Frost Moon corpse</strong> and begins radiating Khuvakhi energy toward Nod Krai. (She received permission from the Frost Moon sister for this.)</div>
+          </div>
+
+          <div class="loop-item">
+            <div class="loop-badge">3</div>
+            <div class="loop-text">Over <strong>thousands of years</strong> of radiating, Nod Krai accumulates abundant Khuvakhi energy.</div>
+          </div>
+
+          <div class="loop-item">
+            <div class="loop-badge">4</div>
+            <div class="loop-text">The Khuvakhi <strong>materializes into Bina's physical body</strong> in Nod Krai — this is why Bina was born in Nod Krai, not on the moon. (After the Cataclysm.)</div>
+          </div>
+
+          <div class="loop-item">
+            <div class="loop-badge">5</div>
+            <div class="loop-text">But Bina is <strong>weak</strong> — most of her soul is still with the Frost Moon, outside the False Sky. She feels a strange, longing pull toward the moon.</div>
+          </div>
+
+          <div class="loop-item">
+            <div class="loop-badge">6</div>
+            <div class="loop-text">Even outside the False Sky's soul rules, Bina <strong>spiritually senses</strong> her soul on the Frost Moon attracting her body in Teyvat.</div>
+          </div>
+
+          <div class="loop-item">
+            <div class="loop-badge">7</div>
+            <div class="loop-text">Once the Frost Moon corpse enters through the False Sky — <strong>soul rules activate</strong> — Bina's soul fuses with Luonnatar as per Soul Rule #5. Bina is whole again.  </div>
+          </div>
+
+        </div>
+        <div class="loop-end">
+          ∞ The loop is complete — Bina exists, whole, in Teyvat's present. 
+          The 4th Moon (frost moon + bina = real moon) is now inside the false sky
+          overshadowing the false moon and the false moon created by HP has a rejection reaction [Zibai's Story Quest]
+        </div>
+      </div>
+
+      <div>
+        <div class="card" style="height:100%">
+          <div style="font-family:'Cinzel',serif;font-size:13px;color:var(--bina);letter-spacing:0.1em;margin-bottom:16px;text-transform:uppercase">Origin of Khuvakhi (The 4th Moon's Power)</div>
+          <p style="font-size:14.5px;color:#b0a898;margin-bottom:14px">Nibuleng only created <strong>three moons</strong>. Yet Khuvakhi (Bina's innate personal power) exists. Where did it come from?</p>
+          <p style="font-size:14.5px;color:#b0a898;margin-bottom:14px">Khuvakhi came from the <strong style="color:var(--frost)">"Light Realm"</strong> — proven by Nicole, Albedo's research, and Sandrone's formula ingredients.</p>
+          <p style="font-size:14.5px;color:#b0a898;margin-bottom:6px">The Light Realm has two possible sources: From HP or From Nibuleng before he got abyss corruption. As for why columbina is let to live/exist/be born:</p>
+          <div style="background:rgba(255,255,255,0.03);border-radius:8px;padding:14px;margin-bottom:10px">
+            <div style="color:var(--hp);font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.1em;margin-bottom:6px">THEORY A — HP ALLOWED IT</div>
+            <div style="font-size:13.5px;color:#a0988a">HP knowingly let the 4th moon (Bina) exist for Teyvat's wellbeing, Either out of pity — similar to how he didn't destroy the moon sisters after taking over, Or Some grand plan like taking care of traveller's spaceship in future</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);border-radius:8px;padding:14px">
+            <div style="color:var(--eternal);font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.1em;margin-bottom:6px">THEORY B — HP DIDN'T CARE</div>
+            <div style="font-size:13.5px;color:#a0988a">HP simply didn't notice — the same way Nicole didn't notice Khuvakhi because it comes from the same Light Realm as the 7 elements of Teyvat, and seemed harmless. He is just happy with a moon hanging on the sky, doesn't care if its fake or real</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════ PRESENT STATE ══════════════ -->
+  <section id="present" class="section">
+    <h2 class="section-title" style="color:var(--eternal)"><span class="icon">🪐</span> Present State — The 4 Moon Specimens in and out of Teyvat</h2>
+
+    <div class="present-grid">
+
+      <div class="present-card" style="--pc:var(--frost);--pc-glow:var(--frost-glow)">
+        <div class="present-orb" style="background:radial-gradient(circle at 35% 35%,#dff4ff,#8dd4f0 45%,#1a3a5a 80%);box-shadow:0 0 30px rgba(141,212,240,0.3)"></div>
+        <div class="present-title">☽ Welkin Moon</div>
+        <div class="present-holder">In the Sky</div>
+        <div class="present-desc">Frost Moon's corpse + <strong>Bina(4th moon) with Trilunar Authority</strong>. The new moon formed from the fusion of Bina's soul returning to the moon corpse.</div>
+      </div>
+
+      <div class="present-card" style="--pc:var(--crimson);--pc-glow:var(--crimson-glow)">
+        <div class="present-orb" style="background:radial-gradient(circle at 35% 35%,#ffb0c0,#e04565 45%,#5a1020 80%);box-shadow:0 0 30px rgba(224,69,101,0.3)"></div>
+        <div class="present-title">☽ Crimson Moon Fragment</div>
+        <div class="present-holder">With Arle</div>
+        <div class="present-desc">The Iridescent Moon fragment that succumbed to Abyssal powers after war. Carries its original bit of power, returned by Bina as promised.</div>
+      </div>
+
+      <div class="present-card" style="--pc:var(--eternal);--pc-glow:var(--eternal-glow)">
+        <div class="present-orb" style="background:radial-gradient(circle at 35% 35%,#fff8cc,#f0c840 45%,#6a4a00 80%);box-shadow:0 0 30px rgba(240,200,64,0.3)"></div>
+        <div class="present-title">☽ Eternal Moon Fragment</div>
+        <div class="present-holder">With Lauma / Frost Moon Scions</div>
+        <div class="present-desc">Fragment of the annihilated Eternal Moon. Carries its original bit of power, restored per Bina's promise to the sisters.</div>
+      </div>
+
+      <div class="present-card" style="--pc:var(--bina);--pc-glow:var(--bina-glow)">
+        <div class="present-orb" style="background:radial-gradient(circle at 35% 35%,#c0fff0,#5de8b8 45%,#0a3028 80%);box-shadow:0 0 30px rgba(93,232,184,0.3)"></div>
+        <div class="present-title">☽ Bina (4th Moon's human-like part)</div>
+        <div class="present-holder">In Teyvat — Reborn</div>
+        <div class="present-desc">Born in Nod Krai from materialized Khuvakhi. Soul fully restored via Luonnatar fusion when Frost Moon entered the False Sky.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════ TRAVELLER LORE ══════════════ -->
+  <section id="traveller" class="section">
+    <h2 class="section-title" style="color:var(--past)"><span class="icon">🚀</span> Traveller Lore — The Spaceship Theory</h2>
+
+    <div class="ship-card">
+      <div class="traveller-points">
+
+        <div class="tp">
+          <div class="tp-icon">🛸</div>
+          <div class="tp-text">The spaceship entered Teyvat's skies long ago — <strong>slowed down, then accelerated again</strong>. Logs show it <strong>orbited Teyvat for thousands of years</strong> before finally crashing into Nod Krai.</div>
+        </div>
+
+        <div class="tp">
+          <div class="tp-icon">🧳</div>
+          <div class="tp-text">The <strong>Sibling left the spaceship earlier</strong> — possibly when it first grazed Teyvat (during the age of Khanriah). The <strong>Traveller was asleep in a hibernation chamber</strong> this entire time while the ship orbited — and remained asleep even after the crash.</div>
+        </div>
+
+        <div class="tp">
+          <div class="tp-icon">🗺️</div>
+          <div class="tp-text">The Sibling somehow <strong>teleported to Khanriah without memories</strong>, slowly recovered them there, but could not locate the spaceship (possibly because it was still orbiting in outer space).</div>
+        </div>
+
+        <div class="tp">
+          <div class="tp-icon">🔑</div>
+          <div class="tp-text"><strong>Direidyth</strong> shows the Sibling a key to the Traveller's hibernation chamber — obtained from a <em>future</em> Traveller. This gave the Sibling proof the Traveller was alive and the ship was in Teyvat.</div>
+        </div>
+
+        <div class="tp">
+          <div class="tp-icon">🏃</div>
+          <div class="tp-text">The Sibling found the crashed ship (unknown how), <strong>rescued the Traveller</strong>, and they both tried to escape Teyvat — <em>instead of saving Khanriah as their Savior</em>. They encountered Asmoday (the Unknown God) blocking their escape.</div>
+        </div>
+
+        <div class="tp" style="background:rgba(255,80,80,0.04);border:1px solid rgba(255,80,80,0.12);border-radius:8px;padding:12px">
+          <div class="tp-icon">⚠️</div>
+          <div class="tp-text"><strong style="color:#f08080">Dottore Theory:</strong> The NPC phantoms near the spaceship were all Hyperboreans/ancient age. If the ship crashed at Khanriah's time, the timeline doesn't fit. Columbina's powers showed the ship was <em>abandoned for many years</em>. Theory: <strong>Dottore manipulated the past records by introducing variables through phantoms in the past</strong>, fabricating history to set up his grand plan of obtaining all three moons. The Wild Hunt phantoms may all be falsified.<br><br>The ship likely crashed <strong>after the Hyperborean age and some years before the Cataclysm</strong>. After the Cataclysm, HP hid the spaceship behind the Frost Moon corpse.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="hero-moon" style="width:50px;height:50px;margin-bottom:16px;box-shadow:0 0 30px 10px rgba(141,212,240,0.2)"></div>
+    <p class="footer-text">Columbina & Sandrone Lore Codex · Genshin Impact Fan Theory</p>
+    <p style="font-family:'EB Garamond',serif;font-style:italic;font-size:13px;color:var(--text-dim);margin-top:8px">"Only one Bina can exist at any point in time — and that is the rule."</p>
+  </div>
+
+</div>
+
+<script>
+// Generate starfield
+const starsContainer = document.getElementById('stars');
+for (let i = 0; i < 200; i++) {
+  const star = document.createElement('div');
+  star.className = 'star';
+  const size = Math.random() * 2.5 + 0.5;
+  star.style.cssText = `
+    width: ${size}px;
+    height: ${size}px;
+    left: ${Math.random() * 100}%;
+    top: ${Math.random() * 100}%;
+    --dur: ${Math.random() * 4 + 2}s;
+    --op: ${Math.random() * 0.6 + 0.2};
+    animation-delay: ${Math.random() * 5}s;
+  `;
+  starsContainer.appendChild(star);
+}
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.section').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(24px)';
+  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>

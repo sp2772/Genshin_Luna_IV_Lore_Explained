@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Columbina & Sandrone Chronicles — Lore Codex</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #040810;
+  --bg2: #070d1a;
+  --frost: #8dd4f0;
+  --frost-glow: rgba(141,212,240,0.25);
+  --eternal: #f0c840;
+  --eternal-glow: rgba(240,200,64,0.25);
+  --crimson: #e04565;
+  --crimson-glow: rgba(224,69,101,0.25);
+  --bina: #5de8b8;
+  --bina-glow: rgba(93,232,184,0.25);
+  --hp: #bf80ff;
+  --hp-glow: rgba(191,128,255,0.22);
+  --nib: #ff8844;
+  --nib-glow: rgba(255,136,68,0.22);
+  --text: #ddd8cc;
+  --text-dim: #8a8070;
+  --accent: #60c8ff;
+  --abyss: #3a0060;
+  --past: #a07850;
+  --present: #5de8b8;
+  --future: #bf80ff;
+  --border: rgba(255,255,255,0.07);
+  --card-bg: rgba(10,18,36,0.85);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'EB Garamond', serif;
+  font-size: 16px;
+  line-height: 1.65;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* STARFIELD */
+#stars {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  animation: twinkle var(--dur, 3s) ease-in-out infinite;
+  opacity: 0;
+}
+@keyframes twinkle {
+  0%,100% { opacity: 0; }
+  50% { opacity: var(--op, 0.7); }
+}
+
+/* LAYOUT */
+.page { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 0 24px 80px; }
+
+/* HEADER */
+.hero {
+  text-align: center;
+  padding: 80px 0 60px;
+  position: relative;
+}
+.hero-moon {
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #dff4ff, #8dd4f0 40%, #1a4a6a 75%, #040810);
+  box-shadow: 0 0 80px 30px rgba(141,212,240,0.3), 0 0 200px 80px rgba(141,212,240,0.1);
+  margin: 0 auto 32px;
+  animation: float 6s ease-in-out infinite;
+  position: relative;
+}
+.hero-moon::after {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  border: 1px solid rgba(141,212,240,0.2);
+  animation: float 6s ease-in-out infinite reverse;
+}
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+
+.hero-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(22px, 4vw, 42px);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--frost);
+  text-shadow: 0 0 40px var(--frost-glow), 0 0 80px rgba(141,212,240,0.12);
+  margin-bottom: 10px;
+}
+.hero-sub {
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-bottom: 36px;
+}
+
+/* LEGEND */
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+}
+.legend-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+
+/* DIVIDER */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--frost), transparent);
+  margin: 48px 0;
+  opacity: 0.25;
+}
+
+/* SECTION */
+.section { margin-bottom: 72px; }
+.section-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(16px, 2.5vw, 22px);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border) 0%, transparent 100%);
+}
+.section-title .icon { font-size: 1.3em; }
+
+/* CARD */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 24px;
+  backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.card:hover {
+  border-color: rgba(255,255,255,0.14);
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--top-color, transparent);
+  border-radius: 12px 12px 0 0;
+}
+
+/* GRID */
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; }
+.grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+
+/* ─── SOUL RULES ─── */
+.rule-card {
+  background: var(--card-bg);
+  border: 1px solid rgba(93,232,184,0.15);
+  border-radius: 10px;
+  padding: 18px 20px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.rule-card:hover { border-color: rgba(93,232,184,0.35); box-shadow: 0 0 20px rgba(93,232,184,0.08); }
+.rule-num {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(93,232,184,0.12);
+  border: 1px solid rgba(93,232,184,0.3);
+  color: var(--bina);
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.rule-text { font-size: 15px; color: var(--text); }
+.rule-text strong { color: var(--bina); }
+.note-box {
+  background: rgba(255,180,60,0.07);
+  border: 1px solid rgba(255,180,60,0.2);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 14px;
+  color: #f0c880;
+  margin-top: 16px;
+  font-style: italic;
+}
+
+/* ─── TIMELINE ─── */
+.timeline { position: relative; padding-left: 40px; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 12px; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--nib) 0%, var(--frost) 40%, var(--bina) 70%, var(--hp) 100%);
+  opacity: 0.3;
+}
+.tl-item {
+  position: relative;
+  margin-bottom: 28px;
+}
+.tl-dot {
+  position: absolute;
+  left: -34px;
+  top: 6px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--dot-color, white);
+  background: var(--bg);
+  box-shadow: 0 0 10px var(--dot-color, white);
+}
+.tl-item .card { transition: all 0.3s; cursor: default; }
+.tl-item .card:hover { transform: translateX(4px); }
+.tl-era {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--dot-color, white);
+  margin-bottom: 6px;
+  opacity: 0.8;
+}
+.tl-head {
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 8px;
+}
+.tl-body { font-size: 14.5px; color: #b8b0a0; }
+.tl-body strong { color: var(--dot-color, white); }
+
+/* ─── MOON SISTERS ─── */
+.moon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+.moon-card {
+  border-radius: 16px;
+  padding: 28px 22px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--mc, rgba(255,255,255,0.1));
+  background: var(--card-bg);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.moon-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px var(--mc-glow, transparent); }
+.moon-orb {
+  width: 90px; height: 90px;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  position: relative;
+  animation: float 5s ease-in-out infinite;
+}
+.moon-orb::after {
+  content: '';
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  border: 1px solid var(--mc, transparent);
+  opacity: 0.3;
+  animation: float 5s ease-in-out infinite reverse;
+}
+.moon-name {
+  font-family: 'Cinzel', serif;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--mc, white);
+}
+.moon-alias {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  font-style: italic;
+  margin-bottom: 16px;
+}
+.moon-fate {
+  font-size: 13.5px;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+.moon-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  border: 1px solid var(--mc, white);
+  color: var(--mc, white);
+  opacity: 0.7;
+}
+
+/* ─── FLOW CHART ─── */
+.flow { display: flex; flex-direction: column; gap: 0; }
+.flow-step {
+  display: flex;
+  gap: 16px;
+  position: relative;
+}
+.flow-step:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 44px;
+  bottom: -8px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--sc, rgba(255,255,255,0.2)) 0%, transparent 100%);
+}
+.flow-num {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.4);
+  border: 2px solid var(--sc, rgba(255,255,255,0.2));
+  color: var(--sc, white);
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 16px var(--sc-glow, transparent);
+}
+.flow-content {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--sc, rgba(255,255,255,0.2));
+  border-radius: 0 10px 10px 0;
+  padding: 14px 18px;
+  margin-bottom: 16px;
+  flex: 1;
+  font-size: 14.5px;
+  color: #c0b8a8;
+  transition: all 0.2s;
+}
+.flow-content:hover { background: rgba(12,22,44,0.9); }
+.flow-content strong { color: var(--sc, white); }
+.flow-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.06);
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--sc, white);
+  margin-bottom: 6px;
+}
+
+/* ─── FORMULA ─── */
+.formula-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.formula-card {
+  background: var(--card-bg);
+  border: 1px solid rgba(191,128,255,0.15);
+  border-radius: 12px;
+  padding: 18px;
+  position: relative;
+  overflow: hidden;
+}
+.formula-card:hover { border-color: rgba(191,128,255,0.35); }
+.formula-card::before {
+  content: attr(data-num);
+  position: absolute;
+  top: -10px; right: 14px;
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 64px;
+  color: rgba(191,128,255,0.05);
+  pointer-events: none;
+}
+.formula-icon { font-size: 28px; margin-bottom: 10px; }
+.formula-title {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--hp);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.formula-desc { font-size: 14px; color: #a8a090; }
+.formula-desc strong { color: var(--hp); }
+
+/* ─── REINCARNATION LOOP ─── */
+.loop-steps { display: flex; flex-direction: column; gap: 0; position: relative; }
+.loop-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  position: relative;
+  padding-bottom: 20px;
+}
+.loop-item:not(:last-child)::after {
+  content: '↓';
+  position: absolute;
+  left: 16px;
+  bottom: 2px;
+  color: rgba(93,232,184,0.3);
+  font-size: 16px;
+}
+.loop-badge {
+  width: 36px;
+  flex-shrink: 0;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid rgba(93,232,184,0.4);
+  background: rgba(93,232,184,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  color: var(--bina);
+}
+.loop-text { font-size: 14.5px; color: #b0a898; padding-top: 6px; }
+.loop-text strong { color: var(--bina); }
+.loop-end {
+  background: linear-gradient(135deg, rgba(93,232,184,0.1), rgba(141,212,240,0.08));
+  border: 1px solid rgba(93,232,184,0.25);
+  border-radius: 12px;
+  padding: 16px 20px;
+  text-align: center;
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  color: var(--bina);
+  letter-spacing: 0.08em;
+  margin-top: 12px;
+}
+
+/* ─── PRESENT MOONS ─── */
+.present-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+.present-card {
+  background: var(--card-bg);
+  border: 1px solid var(--pc, rgba(255,255,255,0.1));
+  border-radius: 12px;
+  padding: 22px;
+  text-align: center;
+  transition: all 0.3s;
+}
+.present-card:hover { box-shadow: 0 8px 40px var(--pc-glow, transparent); transform: translateY(-4px); }
+.present-orb {
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  margin: 0 auto 14px;
+}
+.present-title {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  color: var(--pc, white);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.present-holder { font-size: 13px; color: var(--text-dim); font-style: italic; margin-bottom: 10px; }
+.present-desc { font-size: 13.5px; color: #a0988a; }
+
+/* ─── TRAVELLER ─── */
+.ship-card {
+  background: linear-gradient(135deg, rgba(10,20,40,0.9), rgba(6,12,28,0.9));
+  border: 1px solid rgba(255,180,60,0.12);
+  border-radius: 14px;
+  padding: 26px;
+  position: relative;
+  overflow: hidden;
+}
+.ship-card::before {
+  content: '🚀';
+  position: absolute;
+  top: 20px; right: 24px;
+  font-size: 48px;
+  opacity: 0.1;
+}
+.traveller-points { display: flex; flex-direction: column; gap: 14px; }
+.tp {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.tp-icon {
+  width: 28px; height: 28px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  background: rgba(255,180,60,0.1);
+  border: 1px solid rgba(255,180,60,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  margin-top: 2px;
+}
+.tp-text { font-size: 14.5px; color: #b8b0a0; }
+.tp-text strong { color: #f0c060; }
+
+/* BADGES */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.badge-past { background: rgba(160,120,80,0.15); color: var(--past); border: 1px solid rgba(160,120,80,0.25); }
+.badge-present { background: rgba(93,232,184,0.1); color: var(--present); border: 1px solid rgba(93,232,184,0.25); }
+.badge-future { background: rgba(191,128,255,0.1); color: var(--future); border: 1px solid rgba(191,128,255,0.25); }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: rgba(141,212,240,0.2); border-radius: 3px; }
+
+/* NAV */
+.toc {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 60px;
+}
+.toc-link {
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.2s;
+  background: rgba(255,255,255,0.02);
+}
+.toc-link:hover { border-color: var(--frost); color: var(--frost); background: rgba(141,212,240,0.06); }
+
+/* CALLOUT */
+.callout {
+  background: rgba(93,232,184,0.06);
+  border: 1px solid rgba(93,232,184,0.2);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-top: 18px;
+  font-size: 14px;
+  color: var(--bina);
+}
+.callout strong { color: #80f0c8; }
+
+/* REFLECTION INFO */
+.reflection-box {
+  background: rgba(93,232,184,0.04);
+  border: 1px solid rgba(93,232,184,0.12);
+  border-left: 3px solid var(--bina);
+  border-radius: 0 10px 10px 0;
+  padding: 16px 20px;
+  margin: 16px 0;
+  font-size: 14px;
+  color: #a8c8b8;
+}
+.reflection-box strong { color: var(--bina); }
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  padding: 40px 0;
+  border-top: 1px solid var(--border);
+  margin-top: 60px;
+}
+.footer-text {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+/* ANIMATIONS */
+@keyframes glow-pulse {
+  0%,100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+.glow { animation: glow-pulse 3s ease-in-out infinite; }
+
+/* IMPORTANT STAR MARKER */
+.important {
+  display: inline-block;
+  color: #f0c840;
+  font-size: 12px;
+  margin-left: 4px;
+}
+</style>
+</head>
+<body>
+
+<!-- Starfield -->
+<div id="stars"></div>
+
+<div class="page">
+
+  <!-- ══════════════ HERO ══════════════ -->
+  <div class="hero">
+    <div class="hero-moon"></div>
+    <h1 class="hero-title">The Columbina & Sandrone Chronicles</h1>
+    <p class="hero-sub">A Visual Lore Codex · Genshin Impact Theory</p>
+
+    <!-- Legend -->
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-dot" style="background:var(--past);box-shadow:0 0 6px var(--past)"></div>
+        <span style="color:var(--past)">[Past] Before the Luna IV Archon Quest[AQ]</span>
+      </div>
+      
+      <div class="legend-item">
+        <div class="legend-dot" style="background:var(--present);box-shadow:0 0 6px var(--present)"></div>
+        <span style="color:var(--present)">[Present] Bina disappeared, Luna IV AQ starts</span>
+      </div>
+      
+      <div class="legend-item">
+        <div class="legend-dot" style="background:var(--future);box-shadow:0 0 6px var(--future)"></div>
+        <span style="color:var(--future)">[Future] Events after the Luna IV AQ</span>
+      </div>
+    </div>
+
+    <!-- TOC -->
+    <nav class="toc" style="margin-top:28px;">
+      <a href="#soul-rules" class="toc-link">Soul Rules</a>
+      <a href="#prehistory" class="toc-link">Pre-History</a>
+      <a href="#moon-sisters" class="toc-link">Moon Sisters</a>
+      <a href="#reflection" class="toc-link">Reflection Space</a>
+      <a href="#bina-journey" class="toc-link">Bina's Journey</a>
+      <a href="#sandrone" class="toc-link">Sandrone's Formula</a>
+      <a href="#return" class="toc-link">The Return</a>
+      <a href="#reincarnation" class="toc-link">Reincarnation Loop</a>
+      <a href="#present" class="toc-link">Present State</a>
+      <a href="#traveller" class="toc-link">Traveller Lore</a>
+    </nav>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════ SOUL RULES ══════════════ -->
+  <section id="soul-rules" class="section">
+    <h2 class="section-title" style="color:var(--bina)"><span class="icon">⚗️</span> Soul Rules of Teyvat</h2>
+
+    <div class="note-box">
+      ⚠️ These rules <strong>only apply inside the False Sky (Teyvat) -- Mostly Rules set by first Descenders</strong>. Outside the false sky — no such rules exist.<br>
+      The <strong>Moon's Reflection Space</strong> has its own separate rules (exception).
+    </div>
+
+    <br>
+    <div class="grid-2">
+
+      <div class="rule-card">
+        <div class="rule-num">1</div>
+        <div class="rule-text">A living entity is made of <strong>soul/authority/power + a body</strong>. These two together define a living being.</div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-num">2</div>
+        <div class="rule-text">A <strong>part of a soul cannot exist without a body</strong>. Soul must always be anchored in a living vessel.</div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-num">3</div>
+        <div class="rule-text">A soul <strong>can be divided into parts</strong> and distributed across <strong>multiple bodies simultaneously</strong>.</div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-num">4</div>
+        <div class="rule-text">A body <strong>can contain multiple souls</strong> at the same time (overlapping soul hosting).</div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-num">5</div>
+        <div class="rule-text">If a partial soul is in a body and that body <strong>dies</strong>, the soul-part <strong>merges with the surviving body's soul</strong>.</div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-num">6</div>
+        <div class="rule-text">If the entire soul of a person <strong>cannot find any living body</strong> to inhabit → that entity is considered <strong>truly dead</strong>.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════ PRE-HISTORY TIMELINE ══════════════ -->
+  <section id="prehistory" class="section">
+    <h2 class="section-title" style="color:var(--nib)"><span class="icon">📜</span> Pre-History of Teyvat</h2>
+    <div class="timeline">
+
+      <div class="tl-item" style="--dot-color:var(--nib)">
+        <div class="tl-dot"></div>
+        <div class="card" style="--top-color:var(--nib)">
+          <div class="tl-era">Ancient Era · Dragon Age</div>
+          <div class="tl-head">Nibuleng, the Dragon King</div>
+          <div class="tl-body">Ruled Teyvat by creating <strong>three moons</strong> to watch over the life-cycles of Teyvat — governing life, death, space, time, and reason. Grew bored and left to travel the universe in search of power.</div>
+        </div>
+      </div>
+
+      <div class="tl-item" style="--dot-color:var(--hp)">
+        <div class="tl-dot"></div>
+        <div class="card" style="--top-color:var(--hp)">
+          <div class="tl-era">Interregnum · Guest Era</div>
+          <div class="tl-head">Heavenly Principles Arrives</div>
+          <div class="tl-body">HP came to Teyvat while Nibuleng was away. The <strong>three moon sisters welcomed HP as a guest</strong>. Initially no ill intent — HP simply watched over Teyvat. Teyvat at this time had diverse species: <strong>Hyperboreans, Angels, Dragonkin, Faes, and more</strong>.</div>
+        </div>
+      </div>
+
+      <div class="tl-item" style="--dot-color:var(--hp)">
+        <div class="tl-dot"></div>
+        <div class="card" style="--top-color:var(--hp)">
+          <div class="tl-era">HP Rule Begins</div>
+          <div class="tl-head">HP's Fear & the Strict Order</div>
+          <div class="tl-body">HP began to <strong>fear those who seek power through greed</strong>, afraid of losing authority. Created a rule-based order — copied the moon sisters' system to make <strong>Shades</strong>, implemented strict laws, and <strong>annihilated any civilization threatening his authority</strong> via Divine Nails. Rules were fair but penalties were extreme.</div>
+        </div>
+      </div>
+
+      <div class="tl-item" style="--dot-color:var(--frost)">
+        <div class="tl-dot" style="background:var(--frost)"></div>
+        <div class="card" style="--top-color:var(--frost)">
+          <div class="tl-era">Moon Sisters' Debate</div>
+          <div class="tl-head">The Three Sisters Disagree</div>
+          <div class="tl-body">
+            The moon sisters debated whether to oppose HP:<br><br>
+            🌙 <strong style="color:var(--crimson)">Iridescent Moon</strong> — Opposed HP<br>
+            🌙 <strong style="color:var(--frost)">Frost Moon</strong> — Neutral<br>
+            🌙 <strong style="color:var(--eternal)">Eternal Moon</strong> — Aligned with HP<br><br>
+            Eventually all three agreed: <em>HP's rule of Teyvat was wrong</em>.
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item" style="--dot-color:var(--nib)">
+        <div class="tl-dot"></div>
+        <div class="card" style="--top-color:var(--nib)">
+          <div class="tl-era">The War Begins</div>
+          <div class="tl-head">Nibuleng Returns with Abyss Power</div>
+          <div class="tl-body">Before the moon sisters could act, Nibuleng returned — wielding the <strong>power of the Abyss</strong> from beyond the world. Enraged that an alien (HP) was ruling his world, and that the moon sisters had "betrayed" him by welcoming HP, he <strong>imprisoned all three moon sisters' souls in the Moon's Reflection</strong> — a time-reversed jail from which none can escape once entered.</div>
+        </div>
+      </div>
+
+      <div class="tl-item" style="--dot-color:var(--frost)">
+        <div class="tl-dot"></div>
+        <div class="card" style="--top-color:var(--frost)">
+          <div class="tl-era">HP vs Nibuleng War</div>
+          <div class="tl-head">The Moons Destroyed</div>
+          <div class="tl-body">HP used most of his power to defeat Nibuleng. In the war, <strong>all three physical satellite moons were destroyed</strong>. Only the <strong>Frost Moon's corpse</strong> survived mostly intact. The other moons were shattered — only fragments remained. <span class="badge badge-past">Past</span> The question of how these fragments regained power is answered in [4].</div>
+        </div>
+      </div>
+
+      <div class="tl-item" style="--dot-color:var(--past)">
+        <div class="tl-dot"></div>
+        <div class="card" style="--top-color:var(--past)">
+          <div class="tl-era">Khanriah Age</div>
+          <div class="tl-head">Rerir & Tholindis Enter the Reflection</div>
+          <div class="tl-body">Thousands of years later, <strong>Rerir and Tholindis</strong> entered the Moon's Reflection and got trapped. Rerir's body <strong>shattered into pieces </strong> from incompatibility with the Moon's Reflection space— but <strong> survived due to an immortality curse from Ronova-shade of death. </strong>(The Wild Hunt - abyss revives rerir due to vengence) He later re-entered [thrown/sealed into the moon's reflection with the help of Dainslef etc.] and was barely <strong>compatible with the space due to the Khuvakhi he absorbed from Nod Krai[Wild Hunt]</strong>. <strong>Tholindis's mortal body died</strong> from lethal energy concentrations. Their soul/authority was sealed by the space and they both are separated by 'time' and cannot meet each other eternally [sad].</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════ MOON SISTERS ══════════════ -->
+  <section id="moon-sisters" class="section">
+    <h2 class="section-title" style="color:var(--frost)"><span class="icon">🌙</span> The Three Moon Sisters</h2>
+    <div class="moon-grid">
+
+      <!-- Frost Moon -->
+      <div class="moon-card" style="--mc:var(--frost);--mc-glow:var(--frost-glow)">
+        <div class="moon-orb" style="background:radial-gradient(circle at 35% 35%, #dff4ff, #8dd4f0 45%, #1a3a5a 80%)"></div>
+        <div class="moon-name">☽ Frost Moon</div>
+        <div class="moon-alias">The Neutral One · Middle Sister</div>
+        <div class="moon-fate">
+          Initially <strong>neutral</strong> in the HP debate. Imprisoned in the Moon's Reflection by Nibuleng. Physical corpse survived the war mostly intact — became the vessel through which <strong>Bina radiates Khuvakhi</strong> to Nod Krai over thousands of years.
+        </div>
+        <span class="moon-tag">Corpse survives · Bina's vessel</span>
+      </div>
+
+      <!-- Iridescent / Crimson Moon -->
+      <div class="moon-card" style="--mc:var(--crimson);--mc-glow:var(--crimson-glow)">
+        <div class="moon-orb" style="background:radial-gradient(circle at 35% 35%, #ffb0c0, #e04565 45%, #5a1020 80%)"></div>
+        <div class="moon-name">☽ Iridescent Moon</div>
+        <div class="moon-alias">The Rebel · Became Crimson Moon</div>
+        <div class="moon-fate">
+          <strong>Opposed HP</strong> most strongly. After the war, succumbed to <strong>Abyssal powers</strong> and became the <em>Crimson Moon</em>. Shattered into pieces — one fragment was used by <strong>Tholindis</strong> to open the Reflection gate. Current fragment is held by <strong>Arle</strong>.
+        </div>
+        <span class="moon-tag">Crimson Moon · Held by Arle</span>
+      </div>
+
+      <!-- Eternal Moon -->
+      <div class="moon-card" style="--mc:var(--eternal);--mc-glow:var(--eternal-glow)">
+        <div class="moon-orb" style="background:radial-gradient(circle at 35% 35%, #fff8cc, #f0c840 45%, #6a4a00 80%)"></div>
+        <div class="moon-name">☽ Eternal Moon</div>
+        <div class="moon-alias">The Aligned   · HP's ways</div>
+        <div class="moon-fate">
+          Initially aligned with HP's ways. After the war, was <strong>completely annihilated</strong> — the most destroyed of the three. A fragment of its power persists. Current fragment is held by <strong>Lauma / Frost Moon Scions</strong>.
+        </div>
+        <span class="moon-tag">Annihilated · Fragment with Lauma</span>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════ MOON'S REFLECTION SPACE ══════════════ -->
+  <section id="reflection" class="section">
+    <h2 class="section-title" style="color:var(--accent)"><span class="icon">🪞</span> The Moon's Reflection Space</h2>
+
+    <div class="grid-2">
+      <div class="card">
+        <div style="font-family:'Cinzel',serif;font-size:13px;color:var(--accent);margin-bottom:12px;letter-spacing:0.1em">WHAT IT IS</div>
+        <p style="font-size:14.5px;color:#b0a898">A <strong style="color:var(--accent)">time-reversed jail space</strong> created by Nibuleng to imprison the three moon sisters' souls/authority. Walking in any direction causes time to flow <strong style="color:var(--accent)">backwards</strong>. Anyone who enters will loop back to the moment of their imprisonment.</p>
+      </div>
+      <div class="card">
+        <div style="font-family:'Cinzel',serif;font-size:13px;color:var(--accent);margin-bottom:12px;letter-spacing:0.1em">WHO IS IMPRISONED</div>
+        <p style="font-size:14.5px;color:#b0a898">The jail <strong style="color:var(--accent)">only fully traps soul/authority/power</strong>. Mortals who enter get destroyed by high energy concentrations (Tholindis died). Immortals survive but their powers are stripped (Rerir shattered but survived via curse).</p>
+      </div>
+    </div>
+
+    <div class="reflection-box" style="margin-top:18px">
+      <strong>Key Insight:</strong> "Moon's Reflection Space / Jail / Space" — all terms used interchangeably to refer to the time-reversed space Bina entered in the previous Archon Quest.
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════ BINA'S JOURNEY ══════════════ -->
+  <section id="bina-journey" class="section">
+    <h2 class="section-title" style="color:var(--bina)"><span class="icon">🌌</span> Bina's Journey Through the Reflection Space</h2>
+
+    <div style="margin-bottom:18px">
+      <span class="badge badge-present" style="margin-right:8px">PRESENT → PAST</span>
+      <span style="font-size:13.5px;color:var(--text-dim);font-style:italic">Time flows backwards in the reflection space. Reading these steps = going further into the past.</span>
+    </div>
+
+    <div class="flow" style="--sc:var(--bina);--sc-glow:var(--bina-glow)">
+
+      <div class="flow-step">
+        <div class="flow-num">0</div>
+        <div class="flow-content">
+          <div class="flow-tag">Trigger Event</div>
+          <strong>Bina enters the Moon's Reflection</strong> in desperation to save the Traveller from Dottore's tri-lunar powers. (Dottore later creates an artificial moon fragment, but that's a separate development.)
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <div class="flow-content">
+          <div class="flow-tag">Discovery</div>
+          Bina realizes <strong>time flows backwards</strong> inside the space. She tries to interact with the past using her <strong>Khuvakhi powers</strong> to warn friends about doomsday (Dottore getting all 3 moons).
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-content">
+          <div class="flow-tag">Khuvakhi Limit Found</div>
+          Bina learns: using too much Khuvakhi to interact with the past <strong>forces her back into the space</strong>. (Proved via the Barbeloth Mage Astrology Card incident, and the Traveller turning back when she touched their shoulder.)
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-content">
+          <div class="flow-tag">Writing on the Wall</div>
+          Bina writes using Khuvakhi in the <strong>Traveller's past room</strong>, hoping they'd remember: <em>"open the windows, let moonlight in, I can write on the walls using moonlight."</em> She wrote everything — her survival, her situation — on the wall. The writing was always there but <strong>unnoticed until Nefer & Flins found it</strong> in the present (after the Moon Prayer incident).
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">4</div>
+        <div class="flow-content">
+          <div class="flow-tag">⭐ Critical Action</div>
+          With little power remaining, Bina <strong>cuts a part of her soul</strong> and leaves it with the Traveller — on their very first meeting day — as <strong>Luonnatar</strong>. This soul-fragment is the key to everything that follows.
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">5</div>
+        <div class="flow-content">
+          <div class="flow-tag">Revelation</div>
+          Bina realizes why she could exit the reflection space temporarily — the <strong>memory bubble tunnels</strong> always led to the Traveller's location. This is because she left a part of her soul (Luonnatar) with the Traveller, and <strong>souls attract across time</strong>.
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">6</div>
+        <div class="flow-content">
+          <div class="flow-tag">Rerir & Tholindis Encountered</div>
+          Bina sees Rerir and Tholindis and confirms the rule: <strong>the Reflection space only traps authority/soul</strong>. Rerir's Abyssal powers are gone, but he survives due to his immortality curse. Tholindis's mortal body died from the energy.
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">7</div>
+        <div class="flow-content">
+          <div class="flow-tag">Khuvakhi Revelation</div>
+          Bina realizes: <strong>Khuvakhi is her own innate personal power/authority</strong>. She is not just a person — she is, essentially, a <strong>Fourth Moon</strong>.
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">8</div>
+        <div class="flow-content">
+          <div class="flow-tag">Ancient Past Reached</div>
+          Continuing deeper through the reflection space, Bina travels far enough back to reach <strong>the moment Nibuleng originally imprisoned the three moon sisters</strong>.
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">9</div>
+        <div class="flow-content">
+          <div class="flow-tag">⭐ [4] The Gamble</div>
+          <strong>Bina absorbs all three moon sisters' authority/power into her own body.</strong> The moon sisters can now "die" inside the jail (as their souls/authority left), just like Tholindis died when her body had no moon power to sustain it. Bina's body is now carrying <strong>trilunar authority</strong> — albeit unstably.
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">10</div>
+        <div class="flow-content">
+          <div class="flow-tag">Promise Made</div>
+          Bina <strong>promises the moon sisters</strong> she will return their powers to their physical moon bodies/fragments once she escapes. This explains how the moon fragments later regained some consciousness and power.
+        </div>
+      </div>
+
+      <div class="flow-step" style="--sc:var(--crimson)">
+        <div class="flow-num" style="--sc:var(--crimson)">11</div>
+        <div class="flow-content" style="border-left-color:var(--crimson)">
+          <div class="flow-tag" style="color:var(--crimson)">Death in the Space</div>
+          <strong style="color:var(--crimson)">Bina dies inside the reflection space</strong>, holding the trilunar authority. Her body sacrifices itself. But since a part of her soul — Luonnatar — exists in the present, her soul escapes the reflection space (soul travels through time to rejoin its other half) and <strong>magnetically attaches to Luonnatar at one point in time when a certain condition is met: when the moon is brought inside teyvat's skies for the soul rules to work</strong>.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="callout">
+      <strong>Soul Travel Logic:</strong> The jail traps soul/authority only while you are <em>inside</em> the space. When Bina's body dies while a part of her soul exists <em>outside</em> (as Luonnatar in the present), her soul escapes by following the quantum rule — <em>two soul-parts reunite when one body dies.</em> Soul can travel through time itself to fulfill this rule.
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════ SANDRONE ══════════════ -->
+  <section id="sandrone" class="section">
+    <h2 class="section-title" style="color:var(--hp)"><span class="icon">🧪</span> Sandrone's Formula — Changing Fate</h2>
+
+    <div class="card" style="margin-bottom:24px">
+      <p style="font-size:15px;color:#c0b8a8"><strong style="color:var(--hp)">The Goal:</strong> Teyvat operates like a <em>simulation cycle</em> — defined by rules from Nibuleng & HP. These rules create <strong>fate</strong> (events that are bound to happen, cannot be changed). Sandrone doesn't just want to <em>predict</em> fate (like Rene Petrichor did for Fontaine's prophecy) — she wants to <strong>change it</strong>, specifically to tie Bina back to Teyvat and create the <em>moment</em> of her return.</p>
+    </div>
+
+    <div style="text-align:center;margin-bottom:24px">
+      <img src="data:image/png;base64,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" alt="Sandrone formula sketch" style="max-width:100%;border-radius:12px;border:1px solid rgba(191,128,255,0.2);box-shadow:0 0 30px rgba(191,128,255,0.1)">
+    </div>
+
+    <div class="formula-grid">
+
+      <div class="formula-card" data-num="1">
+        <div class="formula-icon">🌀</div>
+        <div class="formula-title">Outside Variables (Descenders)</div>
+        <div class="formula-desc">Introducing <strong>variables from outside the system</strong> — i.e., Descenders like the Traveller — who are not bound by Teyvat's rules. They break the determinism.</div>
+      </div>
+
+      <div class="formula-card" data-num="2">
+        <div class="formula-icon">🌳</div>
+        <div class="formula-title">The Tree Model (Seal of Chymical Marriage)</div>
+        <div class="formula-desc">Pathway discovered by <strong>Rene Petrichor</strong>: a circle of <strong>4 orthants</strong> (Memories, Wishes, Soul, Persona) + <strong>Tree of Emanation</strong> (Rule, Sustain, Destroy). Albedo confirmed this — so Sandrone reluctantly used it despite not believing in soul/persona.</div>
+      </div>
+
+      <div class="formula-card" data-num="3">
+        <div class="formula-icon">📚</div>
+        <div class="formula-title">Historical Record Nodes</div>
+        <div class="formula-desc">The tree needs <strong>nodes from recorded history</strong>: world, space-time, civilization records. Specifically the <strong>Hyperborean civilization</strong> that worshipped the moon — these are the variable nodes pointing to <strong>primordial Light power</strong>.</div>
+      </div>
+
+      <div class="formula-card" data-num="4">
+        <div class="formula-icon">⚙️</div>
+        <div class="formula-title">Computing Power (Wanderer's Core)</div>
+        <div class="formula-desc">Processing enormous historical + real-time data requires <strong>massive computing power</strong>. Sandrone discovered Alain Guillotine (her creator/father) failed to change fate because he lacked this. Solution: <strong>Wanderer's core</strong>, derived from Irminsul.</div>
+      </div>
+
+      <div class="formula-card" data-num="5">
+        <div class="formula-icon">🔗</div>
+        <div class="formula-title">Bina's Link (Past → Present)</div>
+        <div class="formula-desc">For Bina to reappear, there must be a <strong>verified link between her past self and present self</strong>. The formula calculates the exact <em>moment</em> this link can be activated without breaking Teyvat's quantum rules.</div>
+      </div>
+
+      <div class="formula-card" data-num="6">
+        <div class="formula-icon">🎲</div>
+        <div class="formula-title">Generational Luck (The Miracle)</div>
+        <div class="formula-desc">Even with all the above, a <strong>miracle element</strong> — generational luck — is required. This is the intangible final ingredient that Sandrone's formula accounts for but cannot force.</div>
+      </div>
+
+    </div>
+
+    <div class="note-box" style="margin-top:18px">
+      Nefer found Bina's plans through her memories and <strong>relayed it to Sandrone</strong>, giving Sandrone the final piece needed to complete the formula.
+      At the cost of protecting the real formula from being destroyed by him, Sandrone 'dies' at the hands of dottore.
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════ THE RETURN ══════════════ -->
+  <section id="return" class="section">
+    <h2 class="section-title" style="color:var(--frost)"><span class="icon">✨</span> Bina's Return — The Final Sequence</h2>
+
+    <div class="card" style="margin-bottom:20px;background:linear-gradient(135deg,rgba(12,28,50,0.9),rgba(8,18,36,0.9))">
+      <p style="font-size:14px;color:var(--text-dim);margin-bottom:12px;font-family:'Cinzel',serif;letter-spacing:0.1em;text-transform:uppercase">What needs to happen simultaneously:</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px">
+
+        <div style="background:rgba(141,212,240,0.06);border:1px solid rgba(141,212,240,0.15);border-radius:8px;padding:12px">
+          <div style="color:var(--frost);font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.1em;margin-bottom:6px">🌙 MOON ENTERS FALSE SKY</div>
+          <div style="font-size:13px;color:#a8b8c8">Dottore opens a rift in the false sky. Arle, Varka, etc. use Nicole's powers to physically pull the Frost Moon corpse inside.</div>
+        </div>
+
+        <div style="background:rgba(93,232,184,0.06);border:1px solid rgba(93,232,184,0.15);border-radius:8px;padding:12px">
+          <div style="color:var(--bina);font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.1em;margin-bottom:6px">🌀 TRAVELLER (VARIABLE)</div>
+          <div style="font-size:13px;color:#a8b8c8">The Traveller as a Descender from outside the system provides the external variable that makes fate-change possible.</div>
+        </div>
+
+        <div style="background:rgba(191,128,255,0.06);border:1px solid rgba(191,128,255,0.15);border-radius:8px;padding:12px">
+          <div style="color:var(--hp);font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.1em;margin-bottom:6px">🧪 SANDRONE'S FORMULA</div>
+          <div style="font-size:13px;color:#a8b8c8">The formula runs, using Wanderer's computing power and Rene's tree model to calculate and force the miracle moment.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="flow" style="--sc:var(--frost);--sc-glow:var(--frost-glow)">
+
+      <div class="flow-step">
+        <div class="flow-num">→</div>
+        <div class="flow-content">
+          The moment the <strong>Frost Moon corpse enters the False Sky</strong>, Teyvat's soul rules activate. Bina's soul — which has been radiating Khuvakhi from the Frost Moon — is now inside the false sky's jurisdiction.
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">→</div>
+        <div class="flow-content">
+          <strong>Soul Rule #5 triggers:</strong> A part of soul (the major soul on the Frost Moon) + part of soul with a body (Luonnatar, in present with Traveller) cannot exist as two parts simultaneously in the same system while one has body and other does not - as per teyvat's soul rules. The major soul part <strong>fuses with Luonnatar</strong>.
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">→</div>
+        <div class="flow-content">
+          <strong>Luonnatar becomes the new Bina.</strong> The full soul is now back in a body (Luonnatar's body). Luonnatar ceases to be a separate entity — she <em>is</em> Bina now. (Edit: Bina later recreates Luonnatar again in her Chronicles quest just for fun.)
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">→</div>
+        <div class="flow-content">
+          With her powers restored and her soul whole, <strong>Bina uses her powers to reshape the Khuhenki body</strong> into her own character model/appearance.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════ REINCARNATION LOOP ══════════════ -->
+  <section id="reincarnation" class="section">
+    <h2 class="section-title" style="color:var(--bina)"><span class="icon">🔁</span> Bina's Reincarnation Loop — [5] Hypothesis</h2>
+
+    <div class="grid-2">
+      <div>
+        <div class="loop-steps">
+
+          <div class="loop-item">
+            <div class="loop-badge">1</div>
+            <div class="loop-text">After exiting the Moon's Reflection gate, Bina <strong>fulfills her promise</strong> — returns authority of all three moons back to their respective moon bodies / fragments.</div>
+          </div>
+
+          <div class="loop-item">
+            <div class="loop-badge">2</div>
+            <div class="loop-text">At the end of the war, <strong>Bina's soul stays in the Frost Moon corpse</strong> and begins radiating Khuvakhi energy toward Nod Krai. (She received permission from the Frost Moon sister for this.)</div>
+          </div>
+
+          <div class="loop-item">
+            <div class="loop-badge">3</div>
+            <div class="loop-text">Over <strong>thousands of years</strong> of radiating, Nod Krai accumulates abundant Khuvakhi energy.</div>
+          </div>
+
+          <div class="loop-item">
+            <div class="loop-badge">4</div>
+            <div class="loop-text">The Khuvakhi <strong>materializes into Bina's physical body</strong> in Nod Krai — this is why Bina was born in Nod Krai, not on the moon. (After the Cataclysm.)</div>
+          </div>
+
+          <div class="loop-item">
+            <div class="loop-badge">5</div>
+            <div class="loop-text">But Bina is <strong>weak</strong> — most of her soul is still with the Frost Moon, outside the False Sky. She feels a strange, longing pull toward the moon.</div>
+          </div>
+
+          <div class="loop-item">
+            <div class="loop-badge">6</div>
+            <div class="loop-text">Even outside the False Sky's soul rules, Bina <strong>spiritually senses</strong> her soul on the Frost Moon attracting her body in Teyvat.</div>
+          </div>
+
+          <div class="loop-item">
+            <div class="loop-badge">7</div>
+            <div class="loop-text">Once the Frost Moon corpse enters through the False Sky — <strong>soul rules activate</strong> — Bina's soul fuses with Luonnatar as per Soul Rule #5. Bina is whole again.  </div>
+          </div>
+
+        </div>
+        <div class="loop-end">
+          ∞ The loop is complete — Bina exists, whole, in Teyvat's present. 
+          The 4th Moon (frost moon + bina = real moon) is now inside the false sky
+          overshadowing the false moon and the false moon created by HP has a rejection reaction [Zibai's Story Quest]
+        </div>
+      </div>
+
+      <div>
+        <div class="card" style="height:100%">
+          <div style="font-family:'Cinzel',serif;font-size:13px;color:var(--bina);letter-spacing:0.1em;margin-bottom:16px;text-transform:uppercase">Origin of Khuvakhi (The 4th Moon's Power)</div>
+          <p style="font-size:14.5px;color:#b0a898;margin-bottom:14px">Nibuleng only created <strong>three moons</strong>. Yet Khuvakhi (Bina's innate personal power) exists. Where did it come from?</p>
+          <p style="font-size:14.5px;color:#b0a898;margin-bottom:14px">Khuvakhi came from the <strong style="color:var(--frost)">"Light Realm"</strong> — proven by Nicole, Albedo's research, and Sandrone's formula ingredients.</p>
+          <p style="font-size:14.5px;color:#b0a898;margin-bottom:6px">The Light Realm has two possible sources: From HP or From Nibuleng before he got abyss corruption. As for why columbina is let to live/exist/be born:</p>
+          <div style="background:rgba(255,255,255,0.03);border-radius:8px;padding:14px;margin-bottom:10px">
+            <div style="color:var(--hp);font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.1em;margin-bottom:6px">THEORY A — HP ALLOWED IT</div>
+            <div style="font-size:13.5px;color:#a0988a">HP knowingly let the 4th moon (Bina) exist for Teyvat's wellbeing, Either out of pity — similar to how he didn't destroy the moon sisters after taking over, Or Some grand plan like taking care of traveller's spaceship in future</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);border-radius:8px;padding:14px">
+            <div style="color:var(--eternal);font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.1em;margin-bottom:6px">THEORY B — HP DIDN'T CARE</div>
+            <div style="font-size:13.5px;color:#a0988a">HP simply didn't notice — the same way Nicole didn't notice Khuvakhi because it comes from the same Light Realm as the 7 elements of Teyvat, and seemed harmless. He is just happy with a moon hanging on the sky, doesn't care if its fake or real</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════ PRESENT STATE ══════════════ -->
+  <section id="present" class="section">
+    <h2 class="section-title" style="color:var(--eternal)"><span class="icon">🪐</span> Present State — The 4 Moon Specimens in and out of Teyvat</h2>
+
+    <div class="present-grid">
+
+      <div class="present-card" style="--pc:var(--frost);--pc-glow:var(--frost-glow)">
+        <div class="present-orb" style="background:radial-gradient(circle at 35% 35%,#dff4ff,#8dd4f0 45%,#1a3a5a 80%);box-shadow:0 0 30px rgba(141,212,240,0.3)"></div>
+        <div class="present-title">☽ Welkin Moon</div>
+        <div class="present-holder">In the Sky</div>
+        <div class="present-desc">Frost Moon's corpse + <strong>Bina(4th moon) with Trilunar Authority</strong>. The new moon formed from the fusion of Bina's soul returning to the moon corpse.</div>
+      </div>
+
+      <div class="present-card" style="--pc:var(--crimson);--pc-glow:var(--crimson-glow)">
+        <div class="present-orb" style="background:radial-gradient(circle at 35% 35%,#ffb0c0,#e04565 45%,#5a1020 80%);box-shadow:0 0 30px rgba(224,69,101,0.3)"></div>
+        <div class="present-title">☽ Crimson Moon Fragment</div>
+        <div class="present-holder">With Arle</div>
+        <div class="present-desc">The Iridescent Moon fragment that succumbed to Abyssal powers after war. Carries its original bit of power, returned by Bina as promised.</div>
+      </div>
+
+      <div class="present-card" style="--pc:var(--eternal);--pc-glow:var(--eternal-glow)">
+        <div class="present-orb" style="background:radial-gradient(circle at 35% 35%,#fff8cc,#f0c840 45%,#6a4a00 80%);box-shadow:0 0 30px rgba(240,200,64,0.3)"></div>
+        <div class="present-title">☽ Eternal Moon Fragment</div>
+        <div class="present-holder">With Lauma / Frost Moon Scions</div>
+        <div class="present-desc">Fragment of the annihilated Eternal Moon. Carries its original bit of power, restored per Bina's promise to the sisters.</div>
+      </div>
+
+      <div class="present-card" style="--pc:var(--bina);--pc-glow:var(--bina-glow)">
+        <div class="present-orb" style="background:radial-gradient(circle at 35% 35%,#c0fff0,#5de8b8 45%,#0a3028 80%);box-shadow:0 0 30px rgba(93,232,184,0.3)"></div>
+        <div class="present-title">☽ Bina (4th Moon's human-like part)</div>
+        <div class="present-holder">In Teyvat — Reborn</div>
+        <div class="present-desc">Born in Nod Krai from materialized Khuvakhi. Soul fully restored via Luonnatar fusion when Frost Moon entered the False Sky.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════ TRAVELLER LORE ══════════════ -->
+  <section id="traveller" class="section">
+    <h2 class="section-title" style="color:var(--past)"><span class="icon">🚀</span> Traveller Lore — The Spaceship Theory</h2>
+
+    <div class="ship-card">
+      <div class="traveller-points">
+
+        <div class="tp">
+          <div class="tp-icon">🛸</div>
+          <div class="tp-text">The spaceship entered Teyvat's skies long ago — <strong>slowed down, then accelerated again</strong>. Logs show it <strong>orbited Teyvat for thousands of years</strong> before finally crashing into Nod Krai.</div>
+        </div>
+
+        <div class="tp">
+          <div class="tp-icon">🧳</div>
+          <div class="tp-text">The <strong>Sibling left the spaceship earlier</strong> — possibly when it first grazed Teyvat (during the age of Khanriah). The <strong>Traveller was asleep in a hibernation chamber</strong> this entire time while the ship orbited — and remained asleep even after the crash.</div>
+        </div>
+
+        <div class="tp">
+          <div class="tp-icon">🗺️</div>
+          <div class="tp-text">The Sibling somehow <strong>teleported to Khanriah without memories</strong>, slowly recovered them there, but could not locate the spaceship (possibly because it was still orbiting in outer space).</div>
+        </div>
+
+        <div class="tp">
+          <div class="tp-icon">🔑</div>
+          <div class="tp-text"><strong>Direidyth</strong> shows the Sibling a key to the Traveller's hibernation chamber — obtained from a <em>future</em> Traveller. This gave the Sibling proof the Traveller was alive and the ship was in Teyvat.</div>
+        </div>
+
+        <div class="tp">
+          <div class="tp-icon">🏃</div>
+          <div class="tp-text">The Sibling found the crashed ship (unknown how), <strong>rescued the Traveller</strong>, and they both tried to escape Teyvat — <em>instead of saving Khanriah as their Savior</em>. They encountered Asmoday (the Unknown God) blocking their escape.</div>
+        </div>
+
+        <div class="tp" style="background:rgba(255,80,80,0.04);border:1px solid rgba(255,80,80,0.12);border-radius:8px;padding:12px">
+          <div class="tp-icon">⚠️</div>
+          <div class="tp-text"><strong style="color:#f08080">Dottore Theory:</strong> The NPC phantoms near the spaceship were all Hyperboreans/ancient age. If the ship crashed at Khanriah's time, the timeline doesn't fit. Columbina's powers showed the ship was <em>abandoned for many years</em>. Theory: <strong>Dottore manipulated the past records by introducing variables through phantoms in the past</strong>, fabricating history to set up his grand plan of obtaining all three moons. The Wild Hunt phantoms may all be falsified.<br><br>The ship likely crashed <strong>after the Hyperborean age and some years before the Cataclysm</strong>. After the Cataclysm, HP hid the spaceship behind the Frost Moon corpse.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="hero-moon" style="width:50px;height:50px;margin-bottom:16px;box-shadow:0 0 30px 10px rgba(141,212,240,0.2)"></div>
+    <p class="footer-text">Columbina & Sandrone Lore Codex · Genshin Impact Fan Theory</p>
+    <p style="font-family:'EB Garamond',serif;font-style:italic;font-size:13px;color:var(--text-dim);margin-top:8px">"Only one Bina can exist at any point in time — and that is the rule."</p>
+  </div>
+
+</div>
+
+<script>
+// Generate starfield
+const starsContainer = document.getElementById('stars');
+for (let i = 0; i < 200; i++) {
+  const star = document.createElement('div');
+  star.className = 'star';
+  const size = Math.random() * 2.5 + 0.5;
+  star.style.cssText = `
+    width: ${size}px;
+    height: ${size}px;
+    left: ${Math.random() * 100}%;
+    top: ${Math.random() * 100}%;
+    --dur: ${Math.random() * 4 + 2}s;
+    --op: ${Math.random() * 0.6 + 0.2};
+    animation-delay: ${Math.random() * 5}s;
+  `;
+  starsContainer.appendChild(star);
+}
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.section').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(24px)';
+  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>
